@@ -3,8 +3,8 @@
    hieroglyph-quickstart on Sat Apr 30 21:13:03 2016.
 
 
-Seqential Verilog
-=================
+Sequential Verilog
+==================
 
 | Al Wood
 
@@ -16,7 +16,7 @@ A simple memory to hold state, normally implemented as D-type flip-flop.
 .. code-block:: verilog
 
    reg  y;
-   reg [1:0], a2, b2;
+   reg [1:0] a2, b2;
 
 Inputs and outputs can be declared as registers:
 
@@ -97,7 +97,7 @@ You now know Verilog :-)  Here are the common "gotchas".
 
 .. code-block:: verilog
 
-   alway_comb
+   always_comb
       if (a > b)
          gt = 1'b1; // no eq assignment in branch
       else if (a == b)
@@ -142,7 +142,7 @@ Or we can use default values.
          eq = 1'b0;
          if (a > b)
             gt = 1'b1;
-         else if (a==b);
+         else if (a==b)
             eq = 1'b1;
       end
 
@@ -175,7 +175,7 @@ A default clause is a good catchall.
          default : y = 1'b1;
       endcase
 
-Exercise 3
+Exercise 4
 ----------
 
 Which is actually lots of exercises, all in ``basic_verilog``

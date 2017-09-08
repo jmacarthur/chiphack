@@ -22,7 +22,6 @@ module uart(  input clk,
               input button,
               output [3:0] led,
               output reg UART_TX,   // ** These are the ports used on the de0_nano
-              output UART_GND,      // possibly use i_tx(/rx) from PMOD3/4?
               input  UART_RX
               );
 
@@ -33,12 +32,9 @@ module uart(  input clk,
   wire 					  reset;
   assign reset = ~button;
 
-  assign led[1:0] = recieve_state;
-  assign led[2]   = UART_TX;
-  assign led[3]   = UART_RX;
-
-  // Tie UART_GND low
-  assign UART_GND = 0;
+  assign led[3:0] = recieve_state;
+//  assign led[2]   = UART_TX;
+//  assign led[3]   = UART_RX;
 
 // Transmit logic
 
@@ -75,7 +71,7 @@ module uart(  input clk,
  		    //              detecting this is provided - "key1_edge_detect".)
             if (write_enable == 1) begin
               transmit_state <= 1;
-              transmit_data = recieved;
+              transmit_data <= recieved;
             end
  		      end
  	       1:
@@ -116,9 +112,6 @@ module uart(  input clk,
   reg [7:00] 	recieved;
   reg 				write_enable;
   reg [5:0] 	transmit_data_state;
-  reg [5:0] 	saved;
-
-  // Saved memory
 
   always @(posedge clk or posedge reset) begin 		// Recieve
     if (reset) begin
@@ -132,7 +125,7 @@ module uart(  input clk,
           begin
             write_enable = 0;
             if (UART_RX == 0)
-              recieve_state = 1;
+              recieve_state <= 1;
 
           end
         1,2,3,4,5,6,7,8:
@@ -147,7 +140,7 @@ module uart(  input clk,
             write_enable = 1;
           end
         default:
-          recieve_state = 0;
+          recieve_state <= 0;
       endcase
     end
   end

@@ -24,7 +24,8 @@ module chip (
     output RAMCS,
     // All PMOD outputs
     output [55:0] PMOD,
-    input [1:0] BUT
+    input [1:0] BUT,
+    input [3:0] DIP
   );
 
   // SRAM signals are not use in this design, lets set them to default values
@@ -34,7 +35,7 @@ module chip (
   assign RAMWE = 1'b1;
   assign RAMCS = 1'b1;
 
-  assign PMOD[49:0] = {49{1'b0}};
+  assign PMOD[49:0] = {50{1'b0}};
 
   wire OUT;
 

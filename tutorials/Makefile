@@ -20,7 +20,10 @@
 DIRS = mystorm-setup         \
        basic-verilog         \
        combinatorial-verilog \
-       sequential-verilog
+       sequential-verilog    \
+       uart                  \
+       edsac-peripherals     \
+       hatim-edsac
 
 .PHONY: all
 all:
