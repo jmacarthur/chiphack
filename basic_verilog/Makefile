@@ -57,6 +57,12 @@ blink: ./blink/chip.v ./blink/blink.v blackice.pcf
 		arachne-pnr -d 8k -P tq144:4k -p blackice.pcf chip.blif -o chip.txt
 		icepack chip.txt chip.bin
 
+.PHONY: display
+display: ./display/chip.v ./display/display.v blackice.pcf ./display/contents.txt
+		yosys -q -p "synth_ice40 -blif chip.blif" ./display/chip.v ./display/display.v
+		arachne-pnr -d 8k -P tq144:4k -p blackice.pcf chip.blif -o chip.txt
+		icepack chip.txt chip.bin
+
 .PHONY: lock
 lock: ./lock/chip.v ./lock/lock.v ./lock/edge_detect.v blackice.pcf
 		yosys -q -p "synth_ice40 -blif chip.blif" ./lock/chip.v ./lock/lock.v ./lock/edge_detect.v
